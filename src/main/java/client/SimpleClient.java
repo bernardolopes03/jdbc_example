@@ -4,6 +4,7 @@ import SaleSys.SaleSys;
 import business.DiscountType;
 import business.exception.ApplicationException;
 import dataaccess.exception.PersistenceException;
+import dataaccess.rdgw.ProductRowDataGateway;
 import dbutils.SetupDatabase;
 import presentation.CustomerService;
 import presentation.SaleService;
@@ -64,6 +65,18 @@ public class SimpleClient {
             // This block is entered when the sleep is interrupted, usually during shutdown.
             System.out.println("Application sleep interrupted. Shutting down.");
             Thread.currentThread().interrupt();
+        }
+
+        try {
+            System.out.println("A testar a sua implementação de ProductRowDataGateway...");
+
+            System.out.println("\nA procurar o produto com o código 123...");
+            ProductRowDataGateway foundProduct = ProductRowDataGateway.findWithProdCod(123);
+            System.out.println("Produto encontrado: " + foundProduct.getDescription());
+
+        } catch (PersistenceException e) {
+            System.err.println("Erro ao testar o ProductRowDataGateway!");
+            e.printStackTrace();
         }
     }
 }
